@@ -5,9 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-
-
-public class AerolineaRyanair extends UnicastRemoteObject implements IGatewayRyanair {
+public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaRyanair {
 
 	protected AerolineaRyanair() throws RemoteException {
 		super();
@@ -22,8 +20,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IGatewayRya
 	VueloRyanair v1 = new VueloRyanair();
 	VueloRyanair v2 = new VueloRyanair();
 	VueloRyanair v3 = new VueloRyanair();
-
-	
+	VueloRyanair v4 = new VueloRyanair();
 
 	@Override
 	public ArrayList<VueloRyanair> getAllVuelos() {
@@ -31,18 +28,18 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IGatewayRya
 		v1.setAeropuertoOrigen("BIO");
 		v1.setAeropuertoDestino("BCN");
 		v1.setFecha("20/01/19");
-		v1.setNomAerolinea("IB");
+		v1.setNomAerolinea("FR");
 		v1.setNumAsientos(550);
 		v1.setAsientosDisponibles(550);
-		v1.setNumVuelo("IB425");
+		v1.setNumVuelo("FR425");
 		vuelos.add(v1);
 
 		// Vuelo 2
 		v2.setAeropuertoOrigen("BCN");
 		v2.setAeropuertoDestino("MAD");
 		v2.setFecha("22/01/19");
-		v2.setNomAerolinea("IB");
-		v2.setNumVuelo("IB625");
+		v2.setNomAerolinea("FR");
+		v2.setNumVuelo("FR925");
 		v2.setAsientosDisponibles(650);
 		v2.setNumAsientos(650);
 		vuelos.add(v2);
@@ -51,11 +48,21 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IGatewayRya
 		v3.setAeropuertoOrigen("VLC");
 		v3.setAeropuertoDestino("MAD");
 		v3.setFecha("24/01/19");
-		v3.setNomAerolinea("IB");
-		v3.setNumVuelo("IB25");
+		v3.setNomAerolinea("FR");
+		v3.setNumVuelo("FR256");
 		v3.setAsientosDisponibles(530);
 		v3.setNumAsientos(530);
 		vuelos.add(v3);
+
+		// Vuelo 4
+		v4.setAeropuertoOrigen("BIO");
+		v4.setAeropuertoDestino("MAD");
+		v4.setFecha("20/01/19");
+		v4.setNomAerolinea("FR");
+		v4.setNumVuelo("FR625");
+		v4.setAsientosDisponibles(530);
+		v4.setNumAsientos(530);
+		vuelos.add(v4);
 
 		for (VueloRyanair vuelo : vuelos) {
 			System.out.println("Aerolinea: " + vuelo.getNomAerolinea() + "\n Origen: " + vuelo.getAeropuertoOrigen()
@@ -66,19 +73,21 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IGatewayRya
 	}
 
 	@Override
-	public VueloRyanair buscarVuelo(String aeropuertoDestino, String aeropuertoOrigen, String fechaIda,
-			String fechaVuelta, int asientos) {
+	public VueloRyanair buscarVuelo(String aeropuertoDestino, String aeropuertoOrigen, String fecha,
+			 int asientos) {
 		// TODO Auto-generated method stub
 		int i = 0;
 		VueloRyanair vueloEncontrado = null;
-		for(i=0;i<vuelos.size();i++) {
-			if(vuelos.get(i).getAeropuertoOrigen()==aeropuertoOrigen && vuelos.get(i).getAeropuertoDestino() == aeropuertoDestino && vuelos.get(i).getFecha() == fechaIda && vuelos.get(i).getNumAsientos() == asientos) {
+		for (i = 0; i < vuelos.size(); i++) {
+			if (vuelos.get(i).getAeropuertoOrigen() == aeropuertoOrigen
+					&& vuelos.get(i).getAeropuertoDestino() == aeropuertoDestino && vuelos.get(i).getFecha() == fecha && vuelos.get(i).getAsientosDisponibles() >= asientos
+					&& vuelos.get(i).getNumAsientos() == asientos) {
 				vueloEncontrado = vuelos.get(i);
 			}
-			
+
 		}
 		return vueloEncontrado;
-		
+
 	}
 
 	@Override
@@ -86,12 +95,12 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IGatewayRya
 		// TODO Auto-generated method stub
 		ArrayList<VueloRyanair> vuelosEncontrados = new ArrayList<VueloRyanair>();
 		int i;
-		for(i=0;i<vuelos.size();i++) {
-			if(vuelos.get(i).getAeropuertoOrigen()==aeropuertoOrigen && vuelos.get(i).getFecha() == fecha  ) {
+		for (i = 0; i < vuelos.size(); i++) {
+			if (vuelos.get(i).getAeropuertoOrigen() == aeropuertoOrigen && vuelos.get(i).getFecha() == fecha &&vuelos.get(i).getAsientosDisponibles() >= asientos) {
 				vuelosEncontrados.add(vuelos.get(i));
 			}
 		}
-		
+
 		return vuelosEncontrados;
 	}
 
@@ -99,33 +108,32 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IGatewayRya
 	public boolean reservarVuelo(VueloRyanair vuelo, String nombre, int plazas) {
 		boolean reserva;
 		int plazasdisponibles = vuelo.getAsientosDisponibles();
-		int comprobarReserva = plazasdisponibles-plazas;
-		if(comprobarReserva>=0) {
-			vuelo.setAsientosDisponibles(vuelo.getAsientosDisponibles()-plazas);
+		int comprobarReserva = plazasdisponibles - plazas;
+		if (comprobarReserva >= 0) {
+			vuelo.setAsientosDisponibles(vuelo.getAsientosDisponibles() - plazas);
 			reserva = true;
-		}
-		else {
+		} else {
 			reserva = false;
 		}
-		
+
 		// TODO Auto-generated method stub
 		return reserva;
 	}
-	
+
 	public static void main(String[] args) {
 		if (args.length != 3) {
 			System.out.println("usage: java [policy] [codebase] server.Server [host] [port] [server]");
 			System.exit(0);
 		}
-		
+
 		if (System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
-		
+
 		String name = "//" + args[0] + ":" + args[1] + "/" + args[2];
-		
+
 		try {
-			IGatewayRyanair server = new AerolineaRyanair();
+			IAerolineaRyanair server = new AerolineaRyanair();
 			Naming.rebind(name, server);
 			System.out.println("* Server '" + name + "' active and waiting...");
 		} catch (Exception e) {
@@ -133,7 +141,5 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IGatewayRya
 			e.printStackTrace();
 		}
 	}
- 
-	}
 
-
+}

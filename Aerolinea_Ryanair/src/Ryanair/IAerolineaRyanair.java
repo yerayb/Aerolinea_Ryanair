@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 
-public interface IGatewayRyanair extends Remote  {
+public interface IAerolineaRyanair extends Remote  {
 	static String IP = "127.0.0.1";
 	static String Puerto = "";
 	static String Service = "";
@@ -25,7 +25,7 @@ public interface IGatewayRyanair extends Remote  {
 		 * @param asientos
 		 * @return Devuelve una clase vuelo que cumpla con las caracteristicas descritas
 		 */
-		public VueloRyanair buscarVuelo(String aeropuertoDestino, String aeropuertoOrigen, String fechaIda, String fechaVuelta, int asientos) throws RemoteException;
+		public VueloRyanair buscarVuelo(String aeropuertoDestino, String aeropuertoOrigen, String fecha, int asientos) throws RemoteException;
 		/**
 		 * @param aeropuertoOrigen Aeropuerto de Origen
 		 * @param fecha Fecha de partida del vuelo
