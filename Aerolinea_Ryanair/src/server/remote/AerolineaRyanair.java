@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+
 import server.data.VueloRyanair;
 import server.data.dto.Assembler;
 import server.data.dto.VueloDTO;
@@ -115,14 +116,23 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 	}
 
 	@Override
-	public boolean reservarVuelo(VueloDTO vuelo, String nombre, int plazas) {
+	public boolean reservarVuelo(String codVuelo, String nombre, int plazas) {
 		System.out.println("Request: +reservarVuelo()");
 
 		boolean reserva;
-		int plazasdisponibles = vuelo.getAsientosDisponibles();
+		VueloDTO v = null;
+		
+		for(int i=0;i<vuelos.size();i++) {
+			if(vuelos.get(i).getNumVuelo()==codVuelo) {
+				v = vuelos.get(i);
+			}
+			
+		}
+		
+		int plazasdisponibles = v.getAsientosDisponibles();
 		int comprobarReserva = plazasdisponibles - plazas;
 		if (comprobarReserva >= 0) {
-			vuelo.setAsientosDisponibles(vuelo.getAsientosDisponibles() - plazas);
+			v.setAsientosDisponibles(v.getAsientosDisponibles() - plazas);
 			reserva = true;
 			System.out.println("Vuelo reservado");
 		} else {
