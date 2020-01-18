@@ -1,8 +1,10 @@
-package Ryanair;
+package server.remote;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+
+import server.data.dto.VueloDTO;
 
 
 public interface IAerolineaRyanair extends Remote  {

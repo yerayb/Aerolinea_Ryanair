@@ -1,4 +1,4 @@
-package Ryanair;
+package server.data;
 
 import java.io.Serializable;
 

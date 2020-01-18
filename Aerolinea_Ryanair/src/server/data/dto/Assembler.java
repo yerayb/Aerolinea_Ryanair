@@ -1,4 +1,6 @@
-package Ryanair;
+package server.data.dto;
+
+import server.data.VueloRyanair;
 
 public class Assembler {
 

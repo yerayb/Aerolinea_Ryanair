@@ -1,4 +1,4 @@
-package Ryanair;
+package server.data.dto;
 
 import java.io.Serializable;
 

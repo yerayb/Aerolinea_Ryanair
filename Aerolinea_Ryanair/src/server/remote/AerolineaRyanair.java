@@ -1,9 +1,13 @@
-package Ryanair;
+package server.remote;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+
+import server.data.VueloRyanair;
+import server.data.dto.Assembler;
+import server.data.dto.VueloDTO;
 
 public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaRyanair {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +27,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 	@Override
 	public ArrayList<VueloDTO> getAllVuelos() {
 		// Vuelo 1
+		System.out.println("Request: +getAllVuelos()");
 		VueloRyanair v1 = new VueloRyanair();
 		VueloRyanair v2 = new VueloRyanair();
 		VueloRyanair v3 = new VueloRyanair();
@@ -78,7 +83,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 	@Override
 	public VueloDTO buscarVuelo(String aeropuertoDestino, String aeropuertoOrigen, String fecha,
 			 int asientos) {
-		// TODO Auto-generated method stub
+		System.out.println("Request: +buscarVuelo()");
 		int i = 0;
 		VueloDTO vueloEncontrado = null;
 		for (i = 0; i < vuelos.size(); i++) {
@@ -86,6 +91,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 					&& vuelos.get(i).getAeropuertoDestino() == aeropuertoDestino && vuelos.get(i).getFecha() == fecha && vuelos.get(i).getAsientosDisponibles() >= asientos
 					&& vuelos.get(i).getNumAsientos() == asientos) {
 				vueloEncontrado = vuelos.get(i);
+				System.out.println("Vuelo encontrado");
 			}
 
 		}
@@ -95,7 +101,8 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 
 	@Override
 	public ArrayList<VueloDTO> buscarVuelosDesdeOrigen(String aeropuertoOrigen, String fecha, int asientos) {
-		// TODO Auto-generated method stub
+		System.out.println("Request: +buscarVuelosDesdeOrigen()");
+		
 		ArrayList<VueloDTO> vuelosEncontrados = new ArrayList<VueloDTO>();
 		int i;
 		for (i = 0; i < vuelos.size(); i++) {
@@ -109,16 +116,20 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 
 	@Override
 	public boolean reservarVuelo(VueloDTO vuelo, String nombre, int plazas) {
+		System.out.println("Request: +reservarVuelo()");
+
 		boolean reserva;
 		int plazasdisponibles = vuelo.getAsientosDisponibles();
 		int comprobarReserva = plazasdisponibles - plazas;
 		if (comprobarReserva >= 0) {
 			vuelo.setAsientosDisponibles(vuelo.getAsientosDisponibles() - plazas);
 			reserva = true;
+			System.out.println("Vuelo reservado");
 		} else {
+			System.out.println("Vuelo no reservado");
 			reserva = false;
 		}
-
+		
 		// TODO Auto-generated method stub
 		return reserva;
 	}
