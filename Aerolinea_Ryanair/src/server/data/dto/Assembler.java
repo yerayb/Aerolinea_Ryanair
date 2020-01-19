@@ -13,6 +13,7 @@ public class Assembler {
 		v.setNomAerolinea(vr.getNomAerolinea());
 		v.setNumAsientos(vr.getNumAsientos());
 		v.setNumVuelo(vr.getNumVuelo());
+		v.setPrecio(vr.getPrecio());
 		return v;
 	}
 	
@@ -25,6 +26,7 @@ public class Assembler {
 		v.setNomAerolinea(vr.getNomAerolinea());
 		v.setNumAsientos(vr.getNumAsientos());
 		v.setNumVuelo(vr.getNumVuelo());
+		v.setPrecio(vr.getPrecio());
 		return v;
 	}
 }

@@ -41,6 +41,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 		v1.setNumAsientos(550);
 		v1.setAsientosDisponibles(550);
 		v1.setNumVuelo("FR425");
+		v1.setPrecio(60);
 		vuelos.add(assem.assemble(v1));
 
 		// Vuelo 2
@@ -51,6 +52,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 		v2.setNumVuelo("FR925");
 		v2.setAsientosDisponibles(650);
 		v2.setNumAsientos(650);
+		v2.setPrecio(40);
 		vuelos.add(assem.assemble(v2));
 
 		// Vuelo 3
@@ -61,6 +63,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 		v3.setNumVuelo("FR256");
 		v3.setAsientosDisponibles(530);
 		v3.setNumAsientos(530);
+		v3.setPrecio(75);
 		vuelos.add(assem.assemble(v3));
 
 		// Vuelo 4
@@ -71,6 +74,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 		v4.setNumVuelo("FR625");
 		v4.setAsientosDisponibles(530);
 		v4.setNumAsientos(530);
+		v4.setPrecio(35);
 		vuelos.add(assem.assemble(v4));
 
 		for (VueloDTO vuelo : vuelos) {
