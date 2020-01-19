@@ -40,7 +40,7 @@ public interface IAerolineaRyanair extends Remote  {
 		 */
 		public boolean reservarVuelo(String codVuelo, String nombre, int plazas) throws RemoteException;
 		
-		public VueloDTO getVuelo(String codVuelo);
+		public VueloDTO getVuelo(String codVuelo) throws RemoteException;
 
 
 

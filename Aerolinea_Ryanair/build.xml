@@ -28,7 +28,7 @@
     </target>	
     
 	<target name="server" depends="build" description="Runs the Server">
-		<java classname="Ryanair.AerolineaRyanair" classpath="${classpath}" fork="true">
+		<java classname="server.remote.AerolineaRyanair" classpath="${classpath}" fork="true">
 			<jvmarg value="-Djava.rmi.server.codebase=file:${build.dir}/"/>
 			<jvmarg value="-Djava.security.policy=${policy.file}"/>			
         	<arg value="${server.IP}"/> 

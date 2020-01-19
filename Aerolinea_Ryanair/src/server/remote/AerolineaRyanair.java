@@ -21,14 +21,8 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 		// TODO Auto-generated constructor stub
 		vuelos = new ArrayList<VueloDTO>();
 		assem = new Assembler();
-	}
-
-	
-
-	@Override
-	public ArrayList<VueloDTO> getAllVuelos() {
+		
 		// Vuelo 1
-		System.out.println("Request: +getAllVuelos()");
 		VueloRyanair v1 = new VueloRyanair();
 		VueloRyanair v2 = new VueloRyanair();
 		VueloRyanair v3 = new VueloRyanair();
@@ -76,7 +70,14 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 		v4.setNumAsientos(530);
 		v4.setPrecio(35);
 		vuelos.add(assem.assemble(v4));
+	}
 
+	
+
+	@Override
+	public ArrayList<VueloDTO> getAllVuelos() throws RemoteException{
+
+		System.out.println("Request: +getAllVuelos()");
 		for (VueloDTO vuelo : vuelos) {
 			System.out.println("Aerolinea: " + vuelo.getNomAerolinea() + "\n Origen: " + vuelo.getAeropuertoOrigen()
 					+ "\n Destino: " + vuelo.getAeropuertoDestino());
@@ -87,7 +88,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 
 	@Override
 	public VueloDTO buscarVuelo(String aeropuertoDestino, String aeropuertoOrigen, String fecha,
-			 int asientos) {
+			 int asientos) throws RemoteException{
 		System.out.println("Request: +buscarVuelo()");
 		int i = 0;
 		VueloDTO vueloEncontrado = null;
@@ -105,7 +106,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 	}
 
 	@Override
-	public ArrayList<VueloDTO> buscarVuelosDesdeOrigen(String aeropuertoOrigen, String fecha, int asientos) {
+	public ArrayList<VueloDTO> buscarVuelosDesdeOrigen(String aeropuertoOrigen, String fecha, int asientos) throws RemoteException{
 		System.out.println("Request: +buscarVuelosDesdeOrigen()");
 		
 		ArrayList<VueloDTO> vuelosEncontrados = new ArrayList<VueloDTO>();
@@ -120,7 +121,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 	}
 
 	@Override
-	public boolean reservarVuelo(String codVuelo, String nombre, int plazas) {
+	public boolean reservarVuelo(String codVuelo, String nombre, int plazas) throws RemoteException{
 		System.out.println("Request: +reservarVuelo()");
 
 		boolean reserva;
@@ -149,7 +150,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 	}
 	
 	@Override
-	public VueloDTO getVuelo(String codVuelo) {
+	public VueloDTO getVuelo(String codVuelo) throws RemoteException{
 		VueloDTO v = null;
 		for(int i=0;i<vuelos.size();i++) {
 			if(vuelos.get(i).getNumVuelo()==codVuelo) {
