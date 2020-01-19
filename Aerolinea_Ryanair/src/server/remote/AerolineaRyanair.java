@@ -143,6 +143,18 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 		// TODO Auto-generated method stub
 		return reserva;
 	}
+	
+	@Override
+	public VueloDTO getVuelo(String codVuelo) {
+		VueloDTO v = null;
+		for(int i=0;i<vuelos.size();i++) {
+			if(vuelos.get(i).getNumVuelo()==codVuelo) {
+				v = vuelos.get(i);
+			}
+		}
+		
+		return v;
+	}
 
 	public static void main(String[] args) {
 		if (args.length != 3) {
@@ -165,5 +177,9 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 			e.printStackTrace();
 		}
 	}
+
+
+
+	
 
 }

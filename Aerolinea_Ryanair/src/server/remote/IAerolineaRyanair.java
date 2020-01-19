@@ -39,6 +39,8 @@ public interface IAerolineaRyanair extends Remote  {
 		 * @return True si se ha reservado con exito, false si no
 		 */
 		public boolean reservarVuelo(String codVuelo, String nombre, int plazas) throws RemoteException;
+		
+		public VueloDTO getVuelo(String codVuelo);
 
 
 
