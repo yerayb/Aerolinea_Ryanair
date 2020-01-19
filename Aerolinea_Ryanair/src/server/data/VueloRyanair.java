@@ -14,7 +14,7 @@ public class VueloRyanair implements Serializable {
 	private String fecha;
 	private int numAsientos;
 	private int asientosDisponibles;
-	
+	private int precio;
 
 	
 	public VueloRyanair() {
@@ -103,6 +103,19 @@ public class VueloRyanair implements Serializable {
 	public void setAsientosDisponibles(int asientosDisponibles) {
 		this.asientosDisponibles = asientosDisponibles;
 	}
+
+
+
+	public int getPrecio() {
+		return precio;
+	}
+
+
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
+	
 	
 	
 	
