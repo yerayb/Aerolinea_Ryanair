@@ -1,12 +1,10 @@
 package server.data;
 
-import java.io.Serializable;
 
-public class VueloRyanair implements Serializable {
+public class VueloRyanair {
 
 
-	private static final long serialVersionUID = 1L;
-	
+
 	private String nomAerolinea;
 	private String numVuelo;
 	private String aeropuertoDestino;
