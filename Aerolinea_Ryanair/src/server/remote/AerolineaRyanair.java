@@ -91,17 +91,18 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 			 int asientos) throws RemoteException{
 		System.out.println("Request: +buscarVuelo()");
 		int i = 0;
-		VueloDTO vueloEncontrado = null;
 		for (i = 0; i < vuelos.size(); i++) {
-			if (vuelos.get(i).getAeropuertoOrigen() == aeropuertoOrigen
-					&& vuelos.get(i).getAeropuertoDestino() == aeropuertoDestino && vuelos.get(i).getFecha() == fecha && vuelos.get(i).getAsientosDisponibles() >= asientos
-					&& vuelos.get(i).getNumAsientos() == asientos) {
-				vueloEncontrado = vuelos.get(i);
+			if (	vuelos.get(i).getAeropuertoOrigen().equals(aeropuertoOrigen)
+					&& vuelos.get(i).getAeropuertoDestino().equals(aeropuertoDestino) 
+					&& vuelos.get(i).getFecha().equals(fecha) 
+					&& vuelos.get(i).getAsientosDisponibles() >= asientos) {
+				
 				System.out.println("Vuelo encontrado");
+				return vuelos.get(i);
 			}
 
 		}
-		return vueloEncontrado;
+		return null;
 
 	}
 
@@ -112,7 +113,10 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 		ArrayList<VueloDTO> vuelosEncontrados = new ArrayList<VueloDTO>();
 		int i;
 		for (i = 0; i < vuelos.size(); i++) {
-			if (vuelos.get(i).getAeropuertoOrigen() == aeropuertoOrigen && vuelos.get(i).getFecha() == fecha &&vuelos.get(i).getAsientosDisponibles() >= asientos) {
+			if (	vuelos.get(i).getAeropuertoOrigen().equals(aeropuertoOrigen) 
+					&& vuelos.get(i).getFecha().equals(fecha)
+					&& vuelos.get(i).getAsientosDisponibles() >= asientos) {
+				
 				vuelosEncontrados.add(vuelos.get(i));
 			}
 		}
@@ -128,7 +132,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 		VueloDTO v = null;
 		
 		for(int i=0;i<vuelos.size();i++) {
-			if(vuelos.get(i).getNumVuelo()==codVuelo) {
+			if(vuelos.get(i).getNumVuelo().equals(codVuelo)) {
 				v = vuelos.get(i);
 			}
 			
@@ -153,7 +157,7 @@ public class AerolineaRyanair extends UnicastRemoteObject implements IAerolineaR
 	public VueloDTO getVuelo(String codVuelo) throws RemoteException{
 		VueloDTO v = null;
 		for(int i=0;i<vuelos.size();i++) {
-			if(vuelos.get(i).getNumVuelo()==codVuelo) {
+			if(vuelos.get(i).getNumVuelo().equals(codVuelo)) {
 				v = vuelos.get(i);
 			}
 		}
